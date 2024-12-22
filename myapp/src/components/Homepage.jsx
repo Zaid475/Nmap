@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Homepage.css";
+import { useNavigate } from "react-router-dom";
 
-const Homepage = () => {
+const Topratedpage = () => {
   const Api_key = "c45a857c193f6302f2b5061c3b85e743";
   const imgbase = "https://image.tmdb.org/t/p/w500";
   const [state, updatedstate] = useState([]);
+  const path=useNavigate()
 
   useEffect(() => {
     value();
@@ -32,11 +34,14 @@ const Homepage = () => {
       
       <div className="movie-container">
         {state.map((item) => (
-          <div key={item.id} className="movie-card">
+          <div onClick={()=>{
+            path(`/singlemovie/${item.id}`)
+
+          }}   key={item.id} className="movie-card">
             <img src={`${imgbase}${item.poster_path}`} alt={item.title} />
             <h6>{item.title}</h6>
             <h6>Language: {item.original_language}</h6>
-            <h6>Rating: 7.8</h6>
+            
           </div>
         ))}
       </div>
@@ -44,4 +49,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default Topratedpage;

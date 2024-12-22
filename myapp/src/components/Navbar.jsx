@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../styles/navbar.css"
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Navbar = () => {
+  const Api_key = "c45a857c193f6302f2b5061c3b85e743";
+  const imgbase = "https://image.tmdb.org/t/p/w500";
+  const[movie_name,updatedmovie_name]=useState("")
+  
     const path=useNavigate()
 
     function value(){
@@ -17,7 +22,15 @@ const Navbar = () => {
         path("/upcoming")
 
     }
+    function userdata(event){
+      console.log(event.target.value)
+      updatedmovie_name(event.target.value)
+    }
+
+   async function fetchmovie(){
+    path(`searchedmoviepage/${movie_name}`)
     
+  }
   return (
     <div>
         <div className="navbar">
@@ -28,10 +41,11 @@ const Navbar = () => {
         <div className="search-container">
           <input
             type="text"
+            onChange={userdata}
             placeholder="Movie Name"
             className="search-input"
           />
-          <button className="search-button">Search</button>
+          <button onClick={fetchmovie} className="search-button">Search</button>
         </div>
       </div>
       
